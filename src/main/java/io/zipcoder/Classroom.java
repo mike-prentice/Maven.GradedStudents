@@ -48,7 +48,7 @@ public class Classroom {
 
     public Student[] getStudentByScore() {
         List<Student> sortedStudents = Arrays.asList(students);
-        Comparator<Student> comparator = Comparator.comparingDouble((Student s) -> s.getAverageExamScore())
+        Comparator<Student> comparator = Comparator.comparingDouble((Student s) -> -s.getAverageExamScore())
                 .thenComparing(s -> s.getFirstName())
                 .thenComparing((s -> s.getLastName()));
         Collections.sort(sortedStudents, comparator);
@@ -56,19 +56,27 @@ public class Classroom {
     }
 
     public Student[] getGradeBook() {
+        List<Double> grades = new ArrayList<>();
+        for (Student s: students) {
+            grades.add(s.getAverageExamScore());
+        }
+        Collections.sort(grades);
         HashMap<Student, String> gradeBook = new HashMap<Student, String>();
-        for (int i = 0; i < students.length; i++) {
-            if (students[i].getAverageExamScore() > .9) {
+        for (int i = 0; i < grades.size(); i++) {
+            double totalScores = grades.size();
+            double rank = (i - totalScores - 1) / grades.size() * 100;
+            double percentile = rank * 100;
+
+
+            if (percentile >= 90) {
                 gradeBook.put(students[i], "A");
-            } else if (students[i].getAverageExamScore() >= .29 && students[i].getAverageExamScore() < .9) {
+            } else if (percentile <= 89 && percentile >= 71) {
                 gradeBook.put(students[i], "B");
-            } else if (students[i].getAverageExamScore() >= .29 && students[i].getAverageExamScore() < .9) {
+            } else if (percentile <= 70 && percentile >= 50) {
                 gradeBook.put(students[i], "C");
-            } else if (students[i].getAverageExamScore() >= .29 && students[i].getAverageExamScore() < .9) {
+            } else if (percentile <= 49 && percentile >= 11) {
                 gradeBook.put(students[i], "D");
-            } else if (students[i].getAverageExamScore() >= .29 && students[i].getAverageExamScore() < .9) {
-                gradeBook.put(students[i], "E");
-            } else {
+            }  else {
                 gradeBook.put(students[i], "F");
             }
 
@@ -78,12 +86,8 @@ public class Classroom {
     }
 }
 
-//    public double percentile() {
-//        ArrayList<Double> allGrades = new ArrayList<>();
-//        for (int i = 0; i < students.length; i++) {
-//            allGrades.add(students[i].getAverageExamScore());
-//        }
-//        Arrays.sort(new ArrayList[]{allGrades});
+
+
 //        int low = allGrades[0];
 //        int high = allGrades[allGrades.length - 1];
 //        int tenthPercent = (high - low) * 0.10 + low;

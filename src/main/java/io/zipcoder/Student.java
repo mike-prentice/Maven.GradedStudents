@@ -37,11 +37,11 @@ public class Student {
     }
 
     public String getExamScores() {
-        String scores = " ";
+        StringBuilder scores = new StringBuilder(" ");
         for (int i = 0; i < getNumberOfExamsTaken(); i++) {
-            scores += "Exam" + (i + 1) + "score is " + testScore.get(i) + "\n";
+            scores.append("Exam").append(i + 1).append(" score is ").append(testScore.get(i)).append("\n");
         }
-        return scores;
+        return scores.toString();
     }
 
     public void addExamScore(double testScores) {
