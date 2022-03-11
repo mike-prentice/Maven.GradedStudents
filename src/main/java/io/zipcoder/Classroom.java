@@ -21,6 +21,7 @@ public class Classroom {
         return students;
     }
 
+
     public Double getAverageExamScore() {
         Double average = 0.0;
         for (int i = 0; i < students.length; i++) {
@@ -33,7 +34,7 @@ public class Classroom {
         Arrays.fill(students, student);
     }
 
-    public void removeStudents(String firstName, String lastName) {
+    public  void removeStudents(String firstName, String lastName) {
         for (int i = 0; i < students.length; i++) {
             if (students[i].getFirstName() == firstName && students[i].getLastName() == lastName) {
                 students[i] = null;
@@ -48,12 +49,18 @@ public class Classroom {
 
     public Student[] getStudentByScore() {
         List<Student> sortedStudents = Arrays.asList(students);
+        for (int i = 0; i < sortedStudents.size(); i++){
+            if (sortedStudents.get(i) == null){
+                sortedStudents.remove(sortedStudents.get(i));
+            }
+        }
         Comparator<Student> comparator = Comparator.comparingDouble((Student s) -> -s.getAverageExamScore())
                 .thenComparing(s -> s.getFirstName())
-                .thenComparing((s -> s.getLastName()));
-        Collections.sort(sortedStudents, comparator);
-        return sortedStudents.toArray(sortedStudents.toArray(new Student[students.length]));
-    }
+                .thenComparing((s -> s.getLastName()));     sortedStudents.sort(comparator);
+       return sortedStudents.toArray(sortedStudents.toArray(new Student[students.length]));
+}
+
+
 
     public Student[] getGradeBook() {
         List<Double> grades = new ArrayList<>();
@@ -61,7 +68,7 @@ public class Classroom {
             grades.add(s.getAverageExamScore());
         }
         Collections.sort(grades);
-        HashMap<Student, String> gradeBook = new HashMap<Student, String>();
+        HashMap<Student, String> gradeBook = new HashMap<>();
         for (int i = 0; i < grades.size(); i++) {
             double totalScores = grades.size();
             double rank = (i - totalScores - 1) / grades.size() * 100;

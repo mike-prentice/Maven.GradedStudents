@@ -1,5 +1,6 @@
 package io.zipcoder;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class StudentTest {
@@ -7,20 +8,60 @@ public class StudentTest {
 
 
 
+@Test
+    public void testSetGetFirstName() {
+        // Given
+        String firstName = "Leon";
+        String lastName = "Hunter";
+        Double[] examScores = { 100.0, 95.0, 123.0, 96.0 };
+        Student student = new Student(firstName, lastName, examScores);
 
-    public void testGetFirstName() {
+        //When
+        String expectedFirstName = "Chloe";
+        student.setFirstName(expectedFirstName);
+
+        //Then
+        String actualFirstName = student.getFirstName();
+        Assert.assertEquals(expectedFirstName, actualFirstName);
+
     }
 
-    public void testSetFirstName() {
-    }
 
-    public void testGetLastName() {
-    }
+@Test
+        public void testSetGetLastName() {
+            // Given
+            String firstName = "Brian";
+            String lastName = "Phillips";
+            Double[] examScores = { 100.0, 95.0, 123.0, 96.0 };
+            Student student = new Student(firstName, lastName, examScores);
 
-    public void testSetLastName() {
-    }
+            //When
+            String expectedLastName = "Chloe";
+            student.setLastName(expectedLastName);
 
+            //Then
+            String actualFirstName = student.getLastName();
+            Assert.assertEquals(expectedLastName, actualFirstName);
+
+        }
+
+
+
+@Test
     public void testGetNumberOfExamsTaken() {
+    //When
+        String firstName = "Miles";
+        String lastName = "Prentice";
+        Double[] examScores = { 100.0, 95.0, 123.0, 96.0 };
+        Student student = new Student(firstName, lastName, examScores);
+
+        //When
+        Integer expectedTests = student.getNumberOfExamsTaken();
+
+        //Then
+        Integer actualTests = 4;
+        Assert.assertEquals(actualTests, expectedTests);
+
     }
     @Test
     public void testGetExamScores() {
