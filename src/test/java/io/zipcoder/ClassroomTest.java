@@ -83,10 +83,13 @@ public class ClassroomTest {
         Classroom classroom2 = new Classroom(studentForSort);
 
         //When
-        classroom2.getStudentByScore();
-        System.out.println(Arrays.toString(studentForSort));
+        Student [] expectedArray = {student3, student1, student2};
+
+
 
         //Then
+        Student [] actualArray = classroom2.getStudentByScore();
+        Assert.assertEquals(expectedArray, actualArray);
 
     }
 @Test
@@ -103,6 +106,6 @@ public class ClassroomTest {
 
         //When
         classroom2.getGradeBook();
-        System.out.println(classroom2);
+
     }
 }
